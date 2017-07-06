@@ -10,6 +10,8 @@ population = init.new_pop()
 
 print(population[0]["ind"])
 
+population[0]["ind"].onTick()
+
 for i in range( init.epochs):
 	for b in range(init.btree_sims_per_epoch):
 		evaluator.eval( population )

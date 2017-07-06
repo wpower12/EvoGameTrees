@@ -9,7 +9,7 @@ class BTreeNode():
 	def onTick():
 		return RUNNING
 	def __str__(self, level=0):
-		ret = "\t"*level+self.__repr__()+"\n"
+		ret = " "*level+self.__repr__()+"\n"
 		for child in self.children:
 			ret += child.__str__(level+1)
 		return ret
@@ -29,8 +29,8 @@ class FallBackNode(BTreeNode):
 
 class SequenceNode(BTreeNode):
 	def onTick(self):
-		for i in range(len(children)):
-			child_status = children[i].onTick()
+		for i in range(len(self.children)):
+			child_status = self.children[i].onTick()
 			if child_status == RUNNING:
 				return RUNNING
 			elif child_status == FAILURE:
@@ -59,7 +59,7 @@ class LeafNode(BTreeNode):
 		return self.action_tree.eval()
 
 	def __str__(self, level):
-		return "\t"*level+"LeafNode\n"
+		return " "*level+"LeafNode:"+str(self.action_tree.id)+"\n"
 
 def get_random_internalnode():
 	n = r.randint( 0, 1 )
@@ -69,4 +69,5 @@ def get_random_internalnode():
 		return SequenceNode()
 
 def get_random_leafnode():
-	return LeafNode( ActionTreeNode() )
+	
+	return LeafNode( ActionTreeNode(r.randint(0, 100000)) )
