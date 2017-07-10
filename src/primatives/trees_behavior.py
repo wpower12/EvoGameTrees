@@ -68,6 +68,5 @@ def get_random_internalnode():
 	else:
 		return SequenceNode()
 
-def get_random_leafnode():
-	
-	return LeafNode( ActionTreeNode(r.randint(0, 100000)) )
+def get_random_leafnode( species_count ):	
+	return LeafNode( ActionTreeNode(r.randint(0, species_count)) )

@@ -7,10 +7,12 @@
    stack-based-gp actiontrees.
  - Output the full pop, with each one given their fitness score.
  - Need to define the fitness score for each environment we might encounter.
+ - BIG - Implement the different evaluations for a/b trees.
+ - B-trees - Normal, can keep the current one, but have to replace the species ID's with
+   the relevant, best performing A-trees.
+ - A-trees - Complicated - See notes on iterating over the species.
 """
 import gym
-
-MAX_STEPS = 200
 
 class RandomAgent(object):
 	def __init__(self, action_space):
@@ -27,17 +29,22 @@ class BTreeAgent(object):
 		return self.action_space.sample()
 
 class Eval():
-	def __init__(self, env_type):
-		self.env_type = env_type
-		self.env = gym.make('SpaceInvaders-v0')
+	def __init__(self, env_name):
+		self.env = gym.make(env_name)
 		self.agent = RandomAgent(self.env.action_space)
 
-	def eval(self, pop):
+	def eval(self, pop, max_steps):
 		done = False
 		reward = 0
 		ob = self.env.reset()
-		for j in range(MAX_STEPS):
+		for j in range(max_steps):
 			action = self.agent.act(ob, reward, done)
 			ob, reward, done, _ = self.env.step(action)
 			self.env.render()
 			if done: break
+
+	def eval_btrees(self):
+		a = 1
+
+	def eval_atrees(self):
+		a = 1

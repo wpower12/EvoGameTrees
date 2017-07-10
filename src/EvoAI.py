@@ -8,17 +8,11 @@ gp = GP()
 
 population = init.new_pop()
 
-print(population[0]["ind"])
-
-population[0]["ind"].onTick()
-
 for i in range( init.epochs):
+	print("Epoch "+str(i))
 	for b in range(init.btree_sims_per_epoch):
-		evaluator.eval( population )
+		evaluator.eval( population, init.sim_length )
 		gp.operate( population, "BTrees" )
 	for t in range(init.actiontree_sims_per_epoch):
-		evaluator.eval( population )
+		evaluator.eval( population, init.sim_length )
 		gp.operate( population, "ActionTrees" )
-
-
-
